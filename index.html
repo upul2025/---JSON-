@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ලොතරැයි ජයග්‍රාහී අංක පුරෝකථනය - JSON දත්ත සමඟ</title>
+  <title>ලොතරැයි ජයග්‍රාහී අංක පුරෝකථනය</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -30,17 +30,17 @@
       background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
       color: #334155;
       line-height: 1.6;
-      padding: 20px;
+      padding: 16px;
       min-height: 100vh;
     }
     
     .container {
-      max-width: 1200px;
+      max-width: 100%;
       margin: 0 auto;
       background: var(--card-bg);
       border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
       position: relative;
       overflow: hidden;
     }
@@ -59,31 +59,34 @@
     h1 {
       color: var(--primary);
       text-align: center;
-      margin-bottom: 30px;
-      font-size: 2.2rem;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
       position: relative;
       z-index: 1;
     }
     
     h1 i {
-      margin-right: 15px;
+      margin-right: 10px;
       color: var(--secondary);
     }
     
     .tabs {
       display: flex;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       border-bottom: 2px solid var(--border);
       position: relative;
       z-index: 1;
+      overflow-x: auto;
+      white-space: nowrap;
     }
     
     .tab {
-      padding: 12px 25px;
+      padding: 10px 16px;
       cursor: pointer;
       font-weight: 600;
       transition: all 0.3s;
       border-bottom: 3px solid transparent;
+      font-size: 0.9rem;
     }
     
     .tab.active {
@@ -104,25 +107,26 @@
     .input-section {
       background: rgba(248, 250, 252, 0.8);
       border-radius: 12px;
-      padding: 25px;
-      margin-bottom: 30px;
+      padding: 16px;
+      margin-bottom: 20px;
       border: 1px solid var(--border);
     }
     
     .input-group {
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
     
     label {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       font-weight: 600;
       color: var(--dark);
+      font-size: 0.9rem;
     }
     
     input, select {
       width: 100%;
-      padding: 14px;
+      padding: 12px;
       border: 2px solid var(--border);
       border-radius: 8px;
       font-size: 16px;
@@ -136,30 +140,32 @@
     
     .small-inputs {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 10px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
       position: relative;
     }
     
     .small-inputs input {
       text-align: center;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 16px;
     }
     
     .auto-fill-btn {
-      position: absolute;
-      right: -40px;
-      top: 50%;
-      transform: translateY(-50%);
       background: var(--primary);
       color: white;
       border: none;
       border-radius: 8px;
-      padding: 8px 12px;
+      padding: 10px;
       cursor: pointer;
       font-size: 14px;
       transition: background 0.3s;
+      width: 100%;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
     
     .auto-fill-btn:hover {
@@ -170,55 +176,56 @@
       background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       color: white;
       border: none;
-      padding: 16px 30px;
+      padding: 14px 20px;
       border-radius: 10px;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
       transition: transform 0.3s, box-shadow 0.3s;
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
     }
     
     button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+      box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
     }
     
     .result-section {
       background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-      border-radius: 16px;
-      padding: 30px;
-      margin-top: 30px;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
       border: 1px solid var(--border);
     }
     
     .result-header {
       text-align: center;
       color: var(--primary);
-      margin-bottom: 25px;
-      font-size: 1.5rem;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
     }
     
     .date-tabs {
       display: flex;
       justify-content: center;
-      margin-bottom: 25px;
-      gap: 10px;
+      margin-bottom: 20px;
+      gap: 8px;
       flex-wrap: wrap;
     }
     
     .date-tab {
-      padding: 12px 20px;
+      padding: 10px 16px;
       background: white;
       border: 2px solid var(--border);
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.3s;
       font-weight: 600;
+      font-size: 0.85rem;
     }
     
     .date-tab.active {
@@ -229,43 +236,43 @@
     
     .prediction-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin-bottom: 25px;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
     }
     
     .prediction-card {
       background: white;
       border-radius: 12px;
-      padding: 20px;
+      padding: 16px;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       border: 1px solid var(--border);
       transition: transform 0.3s;
     }
     
     .prediction-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-3px);
     }
     
     .prediction-card h3 {
       color: var(--dark);
-      margin-bottom: 15px;
-      font-size: 1.1rem;
+      margin-bottom: 12px;
+      font-size: 1rem;
     }
     
     .number-display {
-      font-size: 2.5rem;
+      font-size: 2rem;
       font-weight: 800;
       color: var(--primary);
-      margin: 10px 0;
+      margin: 8px 0;
     }
     
     .letter-display {
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: 900;
       color: var(--secondary);
-      margin: 15px 0;
+      margin: 12px 0;
       text-transform: uppercase;
     }
     
@@ -273,29 +280,29 @@
       display: inline-block;
       background: var(--success);
       color: white;
-      padding: 6px 15px;
+      padding: 5px 12px;
       border-radius: 20px;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: 600;
     }
     
     .date-display {
       text-align: center;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: var(--primary);
-      margin: 25px 0;
-      padding: 15px;
+      margin: 20px 0;
+      padding: 12px;
       background: rgba(37, 99, 235, 0.1);
-      border-radius: 10px;
+      border-radius: 8px;
     }
     
     .prediction-summary {
       text-align: center;
-      font-size: 1.1rem;
-      line-height: 1.8;
+      font-size: 0.95rem;
+      line-height: 1.6;
       color: var(--dark);
-      margin-top: 20px;
+      margin-top: 16px;
     }
     
     .highlight {
@@ -306,13 +313,13 @@
     .custom-date-section {
       background: rgba(248, 250, 252, 0.8);
       border-radius: 12px;
-      padding: 20px;
-      margin-top: 20px;
+      padding: 16px;
+      margin-top: 16px;
       border: 1px solid var(--border);
     }
     
     .history-section {
-      margin-top: 30px;
+      margin-top: 20px;
     }
     
     .history-list {
@@ -320,15 +327,16 @@
       overflow-y: auto;
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 10px;
+      padding: 8px;
       background: white;
     }
     
     .history-item {
-      padding: 10px;
+      padding: 8px;
       border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
+      font-size: 0.85rem;
     }
     
     .history-item:last-child {
@@ -338,15 +346,16 @@
     .data-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 20px 0;
+      margin: 16px 0;
       background: white;
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      font-size: 0.8rem;
     }
     
     .data-table th, .data-table td {
-      padding: 12px 15px;
+      padding: 10px 12px;
       text-align: left;
       border-bottom: 1px solid var(--border);
     }
@@ -367,78 +376,97 @@
     
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin: 20px 0;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 16px 0;
     }
     
     .stat-card {
       background: white;
       border-radius: 12px;
-      padding: 20px;
+      padding: 16px;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       border: 1px solid var(--border);
     }
     
     .stat-value {
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-weight: 800;
       color: var(--primary);
-      margin: 10px 0;
+      margin: 8px 0;
     }
     
     .stat-label {
-      font-size: 1rem;
+      font-size: 0.85rem;
       color: var(--dark);
     }
     
     .loading {
       text-align: center;
-      padding: 20px;
-      font-size: 1.2rem;
+      padding: 16px;
+      font-size: 1rem;
       color: var(--primary);
     }
     
-    @media (max-width: 768px) {
-      .small-inputs {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      
-      .auto-fill-btn {
-        position: relative;
-        right: 0;
-        top: 0;
-        transform: none;
-        margin-top: 10px;
-        width: 100%;
-      }
-      
-      .prediction-grid, .stats-grid {
-        grid-template-columns: 1fr;
+    .search-box {
+      position: relative;
+      margin-bottom: 16px;
+    }
+    
+    .search-box i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64748b;
+    }
+    
+    .search-box input {
+      padding-left: 40px;
+    }
+    
+    @media (min-width: 768px) {
+      .container {
+        max-width: 700px;
+        padding: 30px;
       }
       
       h1 {
-        font-size: 1.8rem;
+        font-size: 2rem;
+        margin-bottom: 30px;
       }
       
-      .date-tabs, .tabs {
-        flex-direction: column;
+      .small-inputs {
+        grid-template-columns: repeat(6, 1fr);
+      }
+      
+      .auto-fill-btn {
+        margin-top: 0;
+        width: auto;
+        position: absolute;
+        right: -50px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      
+      .prediction-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
       }
       
       .data-table {
-        font-size: 0.8rem;
-      }
-      
-      .data-table th, .data-table td {
-        padding: 8px 10px;
+        font-size: 0.9rem;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1><i class="fas fa-ticket-alt"></i> ලොතරැයි ජයග්‍රාහී අංක පුරෝකථනය - JSON දත්ත සමඟ</h1>
+    <h1><i class="fas fa-ticket-alt"></i> ලොතරැයි ජයග්‍රාහී අංක පුරෝකථනය</h1>
     
     <div class="tabs">
       <div class="tab active" data-tab="prediction">පුරෝකථනය</div>
@@ -449,12 +477,7 @@
     <div class="tab-content active" id="predictionTab">
       <div class="input-section">
         <div class="input-group">
-          <label for="drawNumber"><i class="fas fa-hashtag"></i> දිනුම් වාරය</label>
-          <input type="text" id="drawNumber" placeholder="උදා: 5925">
-        </div>
-        
-        <div class="input-group">
-          <label for="drawDate"><i class="fas fa-calendar"></i> දිනුම් අඳින ලද දිනය</label>
+          <label for="drawDate"><i class="fas fa-calendar"></i> ජයග්‍රාහී දිනය</label>
           <input type="date" id="drawDate">
         </div>
         
@@ -468,7 +491,7 @@
             <input type="number" min="0" max="9" placeholder="අංක 5" id="num5">
             <input type="number" min="0" max="9" placeholder="අංක 6" id="num6">
             <button class="auto-fill-btn" id="autoFillNumbers">
-              <i class="fas fa-dice"></i> අහඹු අංක
+              <i class="fas fa-dice"></i> අහඹු
             </button>
           </div>
         </div>
@@ -489,7 +512,7 @@
           </div>
           
           <button id="customDateButton">
-            <i class="fas fa-search"></i> තෝරාගත් දිනය සඳහා පුරෝකථනය කරන්න
+            <i class="fas fa-search"></i> තෝරාගත් දිනය සඳහා පුරෝකථනය
           </button>
         </div>
       </div>
@@ -507,7 +530,7 @@
         
         <div class="prediction-grid">
           <div class="prediction-card">
-            <h3><i class="fas fa-star"></i> ඉහළම සම්භාවිතාවෙන් අංකය</h3>
+            <h3><i class="fas fa-star"></i> ඉහළම සම්භාවිතා අංකය</h3>
             <div class="number-display" id="topNumber">-</div>
             <div class="confidence" id="topConfidence">-</div>
           </div>
@@ -540,8 +563,8 @@
     
     <div class="tab-content" id="dataTab">
       <h2 class="result-header"><i class="fas fa-database"></i> ඓතිහාසික ලොතරැයි දත්ත</h2>
-      <div class="input-group">
-        <label for="searchData"><i class="fas fa-search"></i> දත්ත සොයන්න</label>
+      <div class="search-box">
+        <i class="fas fa-search"></i>
         <input type="text" id="searchData" placeholder="දිනය, අංකය හෝ අකුරු මගින් සොයන්න...">
       </div>
       <div class="data-table-container">
@@ -549,7 +572,6 @@
           <thead>
             <tr>
               <th>දිනය</th>
-              <th>දිනුම් අංකය</th>
               <th>ජයග්‍රාහී අකුර</th>
               <th>6 ඉලක්කම්</th>
               <th>අන්තිම 2</th>
@@ -579,8 +601,8 @@
           <div class="stat-label">වැඩිපුර එන අකුර</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value" id="avgDrawNumber">0</div>
-          <div class="stat-label">සාමාන්‍ය දිනුම් අංකය</div>
+          <div class="stat-value" id="recentDraw">-</div>
+          <div class="stat-label">අවසන් ජයග්‍රාහී අංකය</div>
         </div>
       </div>
       
@@ -627,22 +649,26 @@
     async function loadLotteryData() {
       try {
         // Show loading state
-        document.getElementById('dataTableBody').innerHTML = '<tr><td colspan="5" class="loading"><i class="fas fa-spinner fa-spin"></i> දත්ත ලබා ගනිමින්...</td></tr>';
+        document.getElementById('dataTableBody').innerHTML = '<tr><td colspan="4" class="loading"><i class="fas fa-spinner fa-spin"></i> දත්ත ලබා ගනිමින්...</td></tr>';
         
         // In a real scenario, you would fetch from a JSON file
+        // For example: 
         // const response = await fetch('lottery_records.json');
         // lotteryData = await response.json();
         
         // For demonstration, we'll use sample data that matches your JSON structure
+        // This should be replaced with actual data loading from your JSON file
         lotteryData = [
-          { _idx: 3824, raw: "2019/01/01 | C276327", date: "2019-01-01", letter: "C", digits6: "276327", last2: "27", code: "C276327" },
-          { _idx: 3825, raw: "2019/01/03 | N587518", date: "2019-01-03", letter: "N", digits6: "587518", last2: "18", code: "N587518" },
-          { _idx: 3826, raw: "2019/01/04 | G136130", date: "2019-01-04", letter: "G", digits6: "136130", last2: "30", code: "G136130" },
-          { _idx: 3827, raw: "2019/01/06 | C139071", date: "2019-01-06", letter: "C", digits6: "139071", last2: "71", code: "C139071" },
-          { _idx: 3828, raw: "2019/01/07 | L391211", date: "2019-01-07", letter: "L", digits6: "391211", last2: "11", code: "L391211" },
-          { _idx: 3829, raw: "2019/01/08 | S483127", date: "2019-01-08", letter: "S", digits6: "483127", last2: "27", code: "S483127" },
-          { _idx: 3830, raw: "2019/01/10 | T650487", date: "2019-01-10", letter: "T", digits6: "650487", last2: "87", code: "T650487" },
-          // Add more sample data as needed
+          { date: "2023-01-15", letter: "C", digits6: "276327", last2: "27" },
+          { date: "2023-01-18", letter: "N", digits6: "587518", last2: "18" },
+          { date: "2023-01-22", letter: "G", digits6: "136130", last2: "30" },
+          { date: "2023-01-25", letter: "C", digits6: "139071", last2: "71" },
+          { date: "2023-01-29", letter: "L", digits6: "391211", last2: "11" },
+          { date: "2023-02-02", letter: "S", digits6: "483127", last2: "27" },
+          { date: "2023-02-05", letter: "T", digits6: "650487", last2: "87" },
+          { date: "2023-02-09", letter: "W", digits6: "723352", last2: "52" },
+          { date: "2023-02-12", letter: "P", digits6: "085295", last2: "95" },
+          { date: "2023-02-16", letter: "N", digits6: "565624", last2: "24" }
         ];
         
         // Process the data for our application
@@ -650,7 +676,7 @@
         
       } catch (error) {
         console.error('දත්ත ලබා ගැනීමේ දෝෂය:', error);
-        document.getElementById('dataTableBody').innerHTML = '<tr><td colspan="5" class="loading">දත්ත ලබා ගැනීමට නොහැකි විය</td></tr>';
+        document.getElementById('dataTableBody').innerHTML = '<tr><td colspan="4" class="loading">දත්ත ලබා ගැනීමට නොහැකි විය</td></tr>';
       }
     }
     
@@ -947,7 +973,6 @@
         const row = document.createElement('tr');
         row.innerHTML = `
           <td>${formattedDate}</td>
-          <td>${item._idx}</td>
           <td>${item.letter}</td>
           <td>${item.digits6}</td>
           <td>${item.last2}</td>
@@ -989,9 +1014,9 @@
       }
       document.getElementById('mostFrequentLetter').textContent = mostFrequentLetter;
       
-      // Calculate average draw number
-      const avgDrawNumber = Math.round(lotteryData.reduce((sum, item) => sum + item._idx, 0) / totalDraws);
-      document.getElementById('avgDrawNumber').textContent = avgDrawNumber;
+      // Get recent draw numbers
+      const recentDraw = lotteryData.length > 0 ? lotteryData[lotteryData.length - 1].digits6 : '-';
+      document.getElementById('recentDraw').textContent = recentDraw;
       
       // Populate stats table
       for (let i = 0; i < 10; i++) {
@@ -1032,6 +1057,7 @@
       // Set current date as default
       const today = new Date().toISOString().split('T')[0];
       document.getElementById('drawDate').value = today;
+      document.getElementById('customPredictionDate').value = today;
       
       // Auto-fill random numbers on button click
       document.getElementById('autoFillNumbers').addEventListener('click', generateRandomNumbers);
@@ -1056,7 +1082,6 @@
       // Predict button click
       document.getElementById('predictButton').addEventListener('click', async function() {
         // Get input values
-        const drawNumber = document.getElementById('drawNumber').value;
         const drawDate = document.getElementById('drawDate').value;
         const numbers = [];
         for (let i = 1; i <= 6; i++) {
@@ -1064,8 +1089,14 @@
         }
         const winningLetter = document.getElementById('winningLetter').value.toUpperCase();
         
+        // Validate inputs
+        if (!drawDate || numbers.some(n => isNaN(n)) || !winningLetter) {
+          alert('කරුණාකර සියලුම ක්ෂේත්‍ර පුරවන්න!');
+          return;
+        }
+        
         // Create a unique input string for hashing
-        const inputString = `${drawNumber}-${drawDate}-${numbers.join('')}-${winningLetter}`;
+        const inputString = `${drawDate}-${numbers.join('')}-${winningLetter}`;
         
         // Generate hash
         const hash = await sha512(inputString);
@@ -1082,6 +1113,11 @@
         
         // Update predictions for first date
         updatePredictions(window.drawDates[0].key);
+        
+        // Scroll to results
+        document.getElementById('resultSection').scrollIntoView({
+          behavior: 'smooth'
+        });
       });
       
       // Custom date prediction button
@@ -1094,7 +1130,6 @@
         }
         
         // Get input values
-        const drawNumber = document.getElementById('drawNumber').value;
         const drawDate = document.getElementById('drawDate').value;
         const numbers = [];
         for (let i = 1; i <= 6; i++) {
@@ -1102,8 +1137,14 @@
         }
         const winningLetter = document.getElementById('winningLetter').value.toUpperCase();
         
+        // Validate inputs
+        if (!drawDate || numbers.some(n => isNaN(n)) || !winningLetter) {
+          alert('කරුණාකර සියලුම ක්ෂේත්‍ර පුරවන්න!');
+          return;
+        }
+        
         // Create a unique input string for hashing
-        const inputString = `${drawNumber}-${drawDate}-${numbers.join('')}-${winningLetter}`;
+        const inputString = `${drawDate}-${numbers.join('')}-${winningLetter}`;
         
         // Generate hash
         const hash = await sha512(inputString);
@@ -1120,11 +1161,46 @@
         
         // Update predictions for custom date
         updatePredictions(customDate);
+        
+        // Scroll to results
+        document.getElementById('resultSection').scrollIntoView({
+          behavior: 'smooth'
+        });
       });
       
       // Initialize history display
       const history = JSON.parse(localStorage.getItem('lotteryPredictionHistory')) || [];
       updateHistoryDisplay(history);
+      
+      // Add search functionality
+      document.getElementById('searchData').addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const rows = document.querySelectorAll('#dataTableBody tr');
+        
+        rows.forEach(row => {
+          const text = row.textContent.toLowerCase();
+          if (text.includes(searchTerm)) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+      
+      // Add filter functionality for stats
+      document.getElementById('numberStatsSelect').addEventListener('change', function(e) {
+        const selectedNumber = e.target.value;
+        const rows = document.querySelectorAll('#statsTableBody tr');
+        
+        rows.forEach(row => {
+          const number = row.cells[0].textContent;
+          if (!selectedNumber || number === selectedNumber) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
     }
     
     // Run initialization when DOM is loaded
