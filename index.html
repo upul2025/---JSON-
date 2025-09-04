@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ලොතරැයි ජයග්‍රාහී අංක පුරෝකථනය - JSON දත්ත සමඟ</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --secondary: #7c3aed;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --dark: #1e293b;
+      --light: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      color: #334155;
+      line-height: 1.6;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(37, 99, 235, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+      z-index: 0;
+    }
+    
+    h1 {
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.2rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    h1 i {
+      margin-right: 15px;
+      color: var(--secondary);
+    }
+    
+    .tabs {
+      display: flex;
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .tab {
+      padding: 12px 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+    }
+    
+    .tab.active {
+      color: var(--primary);
+      border-bottom: 3px solid var(--primary);
+    }
+    
+    .tab-content {
+      display: none;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .input-section {
+      background: rgba(248, 250, 252, 0.8);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+      border: 1px solid var(--border);
+    }
+    
+    .input-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    
+    input, select {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+    
+    input:focus, select:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+    
+    .small-inputs {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      position: relative;
+    }
+    
+    .small-inputs input {
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    
+    .auto-fill-btn {
+      position: absolute;
+      right: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+    
+    .auto-fill-btn:hover {
+      background: var(--primary-dark);
+    }
+    
+    button {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      border: none;
+      padding: 16px 30px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 600;
+      transition: transform 0.3s, box-shadow 0.3s;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+    }
+    
+    .result-section {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border-radius: 16px;
+      padding: 30px;
+      margin-top: 30px;
+      border: 1px solid var(--border);
+    }
+    
+    .result-header {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 25px;
+      font-size: 1.5rem;
+    }
+    
+    .date-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 25px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .date-tab {
+      padding: 12px 20px;
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+    
+    .date-tab.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    .prediction-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+    
+    .prediction-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--border);
+      transition: transform 0.3s;
+    }
+    
+    .prediction-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .prediction-card h3 {
+      color: var(--dark);
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+    
+    .number-display {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 10px 0;
+    }
+    
+    .letter-display {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--secondary);
+      margin: 15px 0;
+      text-transform: uppercase;
+    }
+    
+    .confidence {
+      display: inline-block;
+      background: var(--success);
+      color: white;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    
+    .date-display {
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 25px 0;
+      padding: 15px;
+      background: rgba(37, 99, 235, 0.1);
+      border-radius: 10px;
+    }
+    
+    .prediction-summary {
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--dark);
+      margin-top: 20px;
+    }
+    
+    .highlight {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    
+    .custom-date-section {
+      background: rgba(248, 250, 252, 0.8);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+      border: 1px solid var(--border);
+    }
+    
+    .history-section {
+      margin-top: 30px;
+    }
+    
+    .history-list {
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      background: white;
+    }
+    
+    .history-item {
+      padding: 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .history-item:last-child {
+      border-bottom: none;
+    }
+    
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    .data-table th, .data-table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .data-table th {
+      background-color: var(--primary);
+      color: white;
+      font-weight: 600;
+    }
+    
+    .data-table tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+    
+    .data-table tr:hover {
+      background-color: #f1f5f9;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+    
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--border);
+    }
+    
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 10px 0;
+    }
+    
+    .stat-label {
+      font-size: 1rem;
+      color: var(--dark);
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 20px;
+      font-size: 1.2rem;
+      color: var(--primary);
+    }
+    
+    @media (max-width: 768px) {
+      .small-inputs {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .auto-fill-btn {
+        position: relative;
+        right: 0;
+        top: 0;
+        transform: none;
+        margin-top: 10px;
+        width: 100%;
+      }
+      
+      .prediction-grid, .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .date-tabs, .tabs {
+        flex-direction: column;
+      }
+      
+      .data-table {
+        font-size: 0.8rem;
+      }
+      
+      .data-table th, .data-table td {
+        padding: 8px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fas fa-ticket-alt"></i> ලොතරැයි ජයග්‍රාහී අංක පුරෝකථනය - JSON දත්ත සමඟ</h1>
+    
+    <div class="tabs">
+      <div class="tab active" data-tab="prediction">පුරෝකථනය</div>
+      <div class="tab" data-tab="data">දත්ත දසුන</div>
+      <div class="tab" data-tab="stats">සංඛ්‍යාලේඛන</div>
+    </div>
+    
+    <div class="tab-content active" id="predictionTab">
+      <div class="input-section">
+        <div class="input-group">
+          <label for="drawNumber"><i class="fas fa-hashtag"></i> දිනුම් වාරය</label>
+          <input type="text" id="drawNumber" placeholder="උදා: 5925">
+        </div>
+        
+        <div class="input-group">
+          <label for="drawDate"><i class="fas fa-calendar"></i> දිනුම් අඳින ලද දිනය</label>
+          <input type="date" id="drawDate">
+        </div>
+        
+        <div class="input-group">
+          <label><i class="fas fa-trophy"></i> ජයග්‍රාහී අංක 6 (අග සිට මුලට)</label>
+          <div class="small-inputs">
+            <input type="number" min="0" max="9" placeholder="අංක 1" id="num1">
+            <input type="number" min="0" max="9" placeholder="අංක 2" id="num2">
+            <input type="number" min="0" max="9" placeholder="අංක 3" id="num3">
+            <input type="number" min="0" max="9" placeholder="අංක 4" id="num4">
+            <input type="number" min="0" max="9" placeholder="අංක 5" id="num5">
+            <input type="number" min="0" max="9" placeholder="අංක 6" id="num6">
+            <button class="auto-fill-btn" id="autoFillNumbers">
+              <i class="fas fa-dice"></i> අහඹු අංක
+            </button>
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label for="winningLetter"><i class="fas fa-font"></i> ජයග්‍රාහී ඉංග්‍රීසි අක්ෂරය</label>
+          <input type="text" id="winningLetter" placeholder="උදා: W" maxlength="1" style="text-transform:uppercase">
+        </div>
+        
+        <button id="predictButton">
+          <i class="fas fa-calculator"></i> අනාවැකි ගණනය කරන්න
+        </button>
+        
+        <div class="custom-date-section">
+          <div class="input-group">
+            <label for="customPredictionDate"><i class="fas fa-calendar-day"></i> පුරෝකථනය සඳහා දිනය තෝරන්න</label>
+            <input type="date" id="customPredictionDate">
+          </div>
+          
+          <button id="customDateButton">
+            <i class="fas fa-search"></i> තෝරාගත් දිනය සඳහා පුරෝකථනය කරන්න
+          </button>
+        </div>
+      </div>
+      
+      <div id="resultSection" class="result-section" style="display: none;">
+        <h2 class="result-header"><i class="fas fa-chart-line"></i> පුරෝකථන ප්‍රතිඵල</h2>
+        
+        <div class="date-tabs" id="dateTabs">
+          <!-- Date tabs will be generated here -->
+        </div>
+        
+        <div class="date-display">
+          <i class="fas fa-calendar-check"></i> තෝරාගත් දිනය: <span id="selectedDate"></span>
+        </div>
+        
+        <div class="prediction-grid">
+          <div class="prediction-card">
+            <h3><i class="fas fa-star"></i> ඉහළම සම්භාවිතාවෙන් අංකය</h3>
+            <div class="number-display" id="topNumber">-</div>
+            <div class="confidence" id="topConfidence">-</div>
+          </div>
+          
+          <div class="prediction-card">
+            <h3><i class="fas fa-medal"></i> දෙවන ඉහළම අංකය</h3>
+            <div class="number-display" id="secondNumber">-</div>
+            <div class="confidence" id="secondConfidence">-</div>
+          </div>
+          
+          <div class="prediction-card">
+            <h3><i class="fas fa-font"></i> ජයග්‍රාහී අක්ෂරය</h3>
+            <div class="letter-display" id="predictedLetter">-</div>
+            <div class="confidence" id="letterConfidence">-</div>
+          </div>
+        </div>
+        
+        <div class="prediction-summary">
+          <p><span class="highlight" id="summaryDate"></span> දිනයේදී <span class="highlight" id="summaryNumbers"></span> අංක සහ <span class="highlight" id="summaryLetter"></span> අක්ෂරය ජයග්‍රාහී වීමේ ඉහළ සම්භාවිතාවක් පවතී.</p>
+        </div>
+        
+        <div class="history-section">
+          <h3><i class="fas fa-history"></i> පෙර පුරෝකථන ඉතිහාසය</h3>
+          <div class="history-list" id="predictionHistory">
+            <!-- Prediction history will be displayed here -->
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="tab-content" id="dataTab">
+      <h2 class="result-header"><i class="fas fa-database"></i> ඓතිහාසික ලොතරැයි දත්ත</h2>
+      <div class="input-group">
+        <label for="searchData"><i class="fas fa-search"></i> දත්ත සොයන්න</label>
+        <input type="text" id="searchData" placeholder="දිනය, අංකය හෝ අකුරු මගින් සොයන්න...">
+      </div>
+      <div class="data-table-container">
+        <table class="data-table" id="lotteryDataTable">
+          <thead>
+            <tr>
+              <th>දිනය</th>
+              <th>දිනුම් අංකය</th>
+              <th>ජයග්‍රාහී අකුර</th>
+              <th>6 ඉලක්කම්</th>
+              <th>අන්තිම 2</th>
+            </tr>
+          </thead>
+          <tbody id="dataTableBody">
+            <!-- Data will be populated by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div class="tab-content" id="statsTab">
+      <h2 class="result-header"><i class="fas fa-chart-bar"></i> සංඛ්‍යාලේඛන විශ්ලේෂණය</h2>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="totalDraws">0</div>
+          <div class="stat-label">මුළු දිනුම් ඇඳීම්</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="mostFrequentNumber">-</div>
+          <div class="stat-label">වැඩිපුර එන අංකය</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="mostFrequentLetter">-</div>
+          <div class="stat-label">වැඩිපුර එන අකුර</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="avgDrawNumber">0</div>
+          <div class="stat-label">සාමාන්‍ය දිනුම් අංකය</div>
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label for="numberStatsSelect"><i class="fas fa-filter"></i> අංකය තෝරන්න</label>
+        <select id="numberStatsSelect">
+          <option value="">සියලුම අංක</option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+        </select>
+      </div>
+      
+      <div class="data-table-container">
+        <table class="data-table" id="statsTable">
+          <thead>
+            <tr>
+              <th>අංකය</th>
+              <th>ප්‍රතිශතය</th>
+              <th>සංඛ්‍යාව</th>
+              <th>අවසන් පැමිණීම</th>
+            </tr>
+          </thead>
+          <tbody id="statsTableBody">
+            <!-- Stats will be populated by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Global variable to store lottery data
+    let lotteryData = [];
+    
+    // Load lottery data from JSON file
+    async function loadLotteryData() {
+      try {
+        // Show loading state
+        document.getElementById('dataTableBody').innerHTML = '<tr><td colspan="5" class="loading"><i class="fas fa-spinner fa-spin"></i> දත්ත ලබා ගනිමින්...</td></tr>';
+        
+        // In a real scenario, you would fetch from a JSON file
+        // const response = await fetch('lottery_records.json');
+        // lotteryData = await response.json();
+        
+        // For demonstration, we'll use sample data that matches your JSON structure
+        lotteryData = [
+          { _idx: 3824, raw: "2019/01/01 | C276327", date: "2019-01-01", letter: "C", digits6: "276327", last2: "27", code: "C276327" },
+          { _idx: 3825, raw: "2019/01/03 | N587518", date: "2019-01-03", letter: "N", digits6: "587518", last2: "18", code: "N587518" },
+          { _idx: 3826, raw: "2019/01/04 | G136130", date: "2019-01-04", letter: "G", digits6: "136130", last2: "30", code: "G136130" },
+          { _idx: 3827, raw: "2019/01/06 | C139071", date: "2019-01-06", letter: "C", digits6: "139071", last2: "71", code: "C139071" },
+          { _idx: 3828, raw: "2019/01/07 | L391211", date: "2019-01-07", letter: "L", digits6: "391211", last2: "11", code: "L391211" },
+          { _idx: 3829, raw: "2019/01/08 | S483127", date: "2019-01-08", letter: "S", digits6: "483127", last2: "27", code: "S483127" },
+          { _idx: 3830, raw: "2019/01/10 | T650487", date: "2019-01-10", letter: "T", digits6: "650487", last2: "87", code: "T650487" },
+          // Add more sample data as needed
+        ];
+        
+        // Process the data for our application
+        processLotteryData();
+        
+      } catch (error) {
+        console.error('දත්ත ලබා ගැනීමේ දෝෂය:', error);
+        document.getElementById('dataTableBody').innerHTML = '<tr><td colspan="5" class="loading">දත්ත ලබා ගැනීමට නොහැකි විය</td></tr>';
+      }
+    }
+    
+    // Process lottery data to extract individual numbers
+    function processLotteryData() {
+      lotteryData.forEach(item => {
+        // Convert digits6 string to array of numbers
+        item.numbers = item.digits6.split('').map(Number);
+      });
+      
+      // Populate data table
+      populateDataTable();
+      
+      // Populate stats
+      populateStatsTable();
+    }
+    
+    // SHA512 Hash Generator
+    async function sha512(str) {
+      const buffer = new TextEncoder().encode(str);
+      const hashBuffer = await crypto.subtle.digest('SHA-512', buffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    
+    // Generate random numbers for auto-fill
+    function generateRandomNumbers() {
+      for (let i = 1; i <= 6; i++) {
+        document.getElementById(`num${i}`).value = Math.floor(Math.random() * 10);
+      }
+      document.getElementById('winningLetter').value = 
+        String.fromCharCode(65 + Math.floor(Math.random() * 26));
+    }
+    
+    // Calculate multiple draw dates (next 5 draws and custom date)
+    function getDrawDates(customDate = null) {
+      const dates = [];
+      const today = new Date();
+      
+      // Add custom date if provided
+      if (customDate) {
+        const customDateObj = new Date(customDate);
+        const formattedCustomDate = customDateObj.toLocaleDateString('si-LK', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          weekday: 'long'
+        });
+        
+        dates.push({
+          key: customDate,
+          display: formattedCustomDate + " (තෝරාගත්)",
+          timestamp: customDateObj.getTime(),
+          isCustom: true
+        });
+      }
+      
+      // Generate dates for next 5 draws (every 3 days)
+      for (let i = 1; i <= 5; i++) {
+        const drawDate = new Date(today);
+        drawDate.setDate(today.getDate() + (i * 3));
+        
+        const formattedDate = drawDate.toLocaleDateString('si-LK', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          weekday: 'long'
+        });
+        
+        const dateKey = drawDate.toISOString().split('T')[0];
+        
+        dates.push({
+          key: dateKey,
+          display: formattedDate,
+          timestamp: drawDate.getTime(),
+          isCustom: false
+        });
+      }
+      
+      return dates;
+    }
+    
+    // Analyze historical data to find patterns
+    function analyzeHistoricalData() {
+      const numberFrequency = Array(10).fill(0);
+      const letterFrequency = {};
+      
+      lotteryData.forEach(item => {
+        item.numbers.forEach(num => {
+          numberFrequency[num]++;
+        });
+        
+        if (letterFrequency[item.letter]) {
+          letterFrequency[item.letter]++;
+        } else {
+          letterFrequency[item.letter] = 1;
+        }
+      });
+      
+      return { numberFrequency, letterFrequency };
+    }
+    
+    // Enhanced prediction using both hash and historical data analysis
+    function enhancedPredictFromHash(hash, dateKey, historicalAnalysis) {
+      // Use dateKey to create unique predictions for each date
+      const dateHash = Array.from(dateKey).reduce((acc, char) => acc + char.charCodeAt(0), 0);
+      
+      // Extract numbers from hash at specific positions (modified by date)
+      const numberPositions = [5, 15, 25, 35, 50, 75, 100, 120];
+      const numbers = numberPositions.map((pos, index) => {
+        const modifiedPos = (pos + dateHash + index) % 128;
+        return parseInt(hash[modifiedPos], 16) % 10;
+      });
+      
+      // Count frequency of each number
+      const freq = {};
+      numbers.forEach(num => {
+        freq[num] = (freq[num] || 0) + 1;
+      });
+      
+      // Combine with historical frequency (weighted 70% historical, 30% hash-based)
+      const combinedFreq = {};
+      for (let i = 0; i < 10; i++) {
+        combinedFreq[i] = (historicalAnalysis.numberFrequency[i] * 0.7) + ((freq[i] || 0) * 0.3);
+      }
+      
+      // Get top two most frequent numbers
+      const sortedNumbers = Object.entries(combinedFreq)
+        .sort((a, b) => b[1] - a[1])
+        .map(entry => parseInt(entry[0]));
+      
+      const topNumber = sortedNumbers[0] || 0;
+      const secondNumber = sortedNumbers[1] || (topNumber + 1) % 10;
+      
+      // Calculate confidence based on frequency
+      const total = Object.values(combinedFreq).reduce((a, b) => a + b, 0);
+      const topConfidence = Math.min(95, Math.round((combinedFreq[topNumber] / total) * 100));
+      const secondConfidence = Math.min(85, Math.round((combinedFreq[secondNumber] / total) * 100));
+      
+      // Predict letter from hash (modified by date)
+      const letterPositions = [10, 20, 30, 40, 60, 80];
+      const letters = letterPositions.map((pos, index) => {
+        const modifiedPos = (pos + dateHash + index) % 128;
+        const hexVal = parseInt(hash.slice(modifiedPos, modifiedPos+2), 16);
+        return String.fromCharCode(65 + (hexVal % 26)); // A-Z
+      });
+      
+      // Find most frequent letter
+      const letterFreq = {};
+      letters.forEach(l => letterFreq[l] = (letterFreq[l] || 0) + 1);
+      
+      // Combine with historical letter frequency
+      const combinedLetterFreq = {};
+      Object.keys(historicalAnalysis.letterFrequency).forEach(l => {
+        combinedLetterFreq[l] = (historicalAnalysis.letterFrequency[l] * 0.7) + ((letterFreq[l] || 0) * 0.3);
+      });
+      
+      const predictedLetter = Object.entries(combinedLetterFreq)
+        .sort((a, b) => b[1] - a[1])[0][0];
+      
+      const totalLetters = Object.values(combinedLetterFreq).reduce((a, b) => a + b, 0);
+      const letterConfidence = Math.min(90, Math.round((combinedLetterFreq[predictedLetter] / totalLetters) * 100));
+      
+      return {
+        topNumber,
+        topConfidence,
+        secondNumber,
+        secondConfidence,
+        predictedLetter,
+        letterConfidence
+      };
+    }
+    
+    // Create date tabs
+    function createDateTabs(dates) {
+      const tabsContainer = document.getElementById('dateTabs');
+      tabsContainer.innerHTML = '';
+      
+      dates.forEach((date, index) => {
+        const tab = document.createElement('div');
+        tab.className = `date-tab ${index === 0 ? 'active' : ''}`;
+        tab.textContent = date.display;
+        tab.dataset.dateKey = date.key;
+        
+        tab.addEventListener('click', function() {
+          // Remove active class from all tabs
+          document.querySelectorAll('.date-tab').forEach(t => t.classList.remove('active'));
+          // Add active class to clicked tab
+          this.classList.add('active');
+          
+          // Update predictions for selected date
+          updatePredictions(this.dataset.dateKey);
+        });
+        
+        tabsContainer.appendChild(tab);
+      });
+    }
+    
+    // Update predictions for selected date
+    function updatePredictions(dateKey) {
+      const historicalAnalysis = analyzeHistoricalData();
+      const prediction = enhancedPredictFromHash(window.currentHash, dateKey, historicalAnalysis);
+      const selectedDate = window.drawDates.find(d => d.key === dateKey);
+      
+      // Update display
+      document.getElementById('selectedDate').textContent = selectedDate.display;
+      document.getElementById('topNumber').textContent = prediction.topNumber;
+      document.getElementById('topConfidence').textContent = `${prediction.topConfidence}%`;
+      document.getElementById('secondNumber').textContent = prediction.secondNumber;
+      document.getElementById('secondConfidence').textContent = `${prediction.secondConfidence}%`;
+      document.getElementById('predictedLetter').textContent = prediction.predictedLetter;
+      document.getElementById('letterConfidence').textContent = `${prediction.letterConfidence}%`;
+      
+      // Update summary
+      document.getElementById('summaryDate').textContent = selectedDate.display;
+      document.getElementById('summaryNumbers').textContent = `${prediction.topNumber} හෝ ${prediction.secondNumber}`;
+      document.getElementById('summaryLetter').textContent = prediction.predictedLetter;
+      
+      // Save to history
+      saveToHistory(dateKey, prediction);
+    }
+    
+    // Save prediction to history
+    function saveToHistory(dateKey, prediction) {
+      // Get existing history or initialize
+      let history = JSON.parse(localStorage.getItem('lotteryPredictionHistory')) || [];
+      
+      // Add new prediction
+      const historyItem = {
+        date: dateKey,
+        timestamp: new Date().getTime(),
+        prediction: prediction
+      };
+      
+      // Add to beginning of history
+      history.unshift(historyItem);
+      
+      // Keep only last 10 items
+      if (history.length > 10) {
+        history = history.slice(0, 10);
+      }
+      
+      // Save back to localStorage
+      localStorage.setItem('lotteryPredictionHistory', JSON.stringify(history));
+      
+      // Update history display
+      updateHistoryDisplay(history);
+    }
+    
+    // Update history display
+    function updateHistoryDisplay(history) {
+      const historyContainer = document.getElementById('predictionHistory');
+      
+      if (history.length === 0) {
+        historyContainer.innerHTML = '<div class="history-item">පුරෝකථන ඉතිහාසය නොමැත</div>';
+        return;
+      }
+      
+      historyContainer.innerHTML = '';
+      
+      history.forEach(item => {
+        const historyItem = document.createElement('div');
+        historyItem.className = 'history-item';
+        
+        const date = new Date(item.date);
+        const formattedDate = date.toLocaleDateString('si-LK', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+        
+        historyItem.innerHTML = `
+          <div>${formattedDate}</div>
+          <div>${item.prediction.topNumber} (${item.prediction.topConfidence}%) | ${item.prediction.predictedLetter} (${item.prediction.letterConfidence}%)</div>
+        `;
+        
+        historyContainer.appendChild(historyItem);
+      });
+    }
+    
+    // Populate data table
+    function populateDataTable() {
+      const tableBody = document.getElementById('dataTableBody');
+      tableBody.innerHTML = '';
+      
+      lotteryData.forEach(item => {
+        const dateObj = new Date(item.date);
+        const formattedDate = dateObj.toLocaleDateString('si-LK', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${formattedDate}</td>
+          <td>${item._idx}</td>
+          <td>${item.letter}</td>
+          <td>${item.digits6}</td>
+          <td>${item.last2}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+    
+    // Populate stats table
+    function populateStatsTable() {
+      const tableBody = document.getElementById('statsTableBody');
+      tableBody.innerHTML = '';
+      
+      const historicalAnalysis = analyzeHistoricalData();
+      const totalDraws = lotteryData.length;
+      
+      // Update stats cards
+      document.getElementById('totalDraws').textContent = totalDraws;
+      
+      // Find most frequent number
+      let maxFreq = 0;
+      let mostFrequentNumber = '-';
+      for (let i = 0; i < 10; i++) {
+        if (historicalAnalysis.numberFrequency[i] > maxFreq) {
+          maxFreq = historicalAnalysis.numberFrequency[i];
+          mostFrequentNumber = i;
+        }
+      }
+      document.getElementById('mostFrequentNumber').textContent = mostFrequentNumber;
+      
+      // Find most frequent letter
+      let maxLetterFreq = 0;
+      let mostFrequentLetter = '-';
+      for (const letter in historicalAnalysis.letterFrequency) {
+        if (historicalAnalysis.letterFrequency[letter] > maxLetterFreq) {
+          maxLetterFreq = historicalAnalysis.letterFrequency[letter];
+          mostFrequentLetter = letter;
+        }
+      }
+      document.getElementById('mostFrequentLetter').textContent = mostFrequentLetter;
+      
+      // Calculate average draw number
+      const avgDrawNumber = Math.round(lotteryData.reduce((sum, item) => sum + item._idx, 0) / totalDraws);
+      document.getElementById('avgDrawNumber').textContent = avgDrawNumber;
+      
+      // Populate stats table
+      for (let i = 0; i < 10; i++) {
+        const percentage = Math.round((historicalAnalysis.numberFrequency[i] / (totalDraws * 6)) * 100);
+        const lastAppearance = findLastAppearance(i);
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${i}</td>
+          <td>${percentage}%</td>
+          <td>${historicalAnalysis.numberFrequency[i]}</td>
+          <td>${lastAppearance}</td>
+        `;
+        tableBody.appendChild(row);
+      }
+    }
+    
+    // Find last appearance of a number
+    function findLastAppearance(number) {
+      for (let i = lotteryData.length - 1; i >= 0; i--) {
+        if (lotteryData[i].numbers.includes(number)) {
+          const dateObj = new Date(lotteryData[i].date);
+          return dateObj.toLocaleDateString('si-LK', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+          });
+        }
+      }
+      return 'නැත';
+    }
+    
+    // Initialize the application
+    function initApp() {
+      // Load lottery data first
+      loadLotteryData();
+      
+      // Set current date as default
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('drawDate').value = today;
+      
+      // Auto-fill random numbers on button click
+      document.getElementById('autoFillNumbers').addEventListener('click', generateRandomNumbers);
+      
+      // Tab switching
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          // Remove active class from all tabs
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          // Add active class to clicked tab
+          this.classList.add('active');
+          
+          // Hide all tab content
+          document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+          
+          // Show the corresponding tab content
+          const tabId = this.dataset.tab + 'Tab';
+          document.getElementById(tabId).classList.add('active');
+        });
+      });
+      
+      // Predict button click
+      document.getElementById('predictButton').addEventListener('click', async function() {
+        // Get input values
+        const drawNumber = document.getElementById('drawNumber').value;
+        const drawDate = document.getElementById('drawDate').value;
+        const numbers = [];
+        for (let i = 1; i <= 6; i++) {
+          numbers.push(parseInt(document.getElementById(`num${i}`).value) || 0);
+        }
+        const winningLetter = document.getElementById('winningLetter').value.toUpperCase();
+        
+        // Create a unique input string for hashing
+        const inputString = `${drawNumber}-${drawDate}-${numbers.join('')}-${winningLetter}`;
+        
+        // Generate hash
+        const hash = await sha512(inputString);
+        window.currentHash = hash;
+        
+        // Get draw dates (next 5 draws)
+        window.drawDates = getDrawDates();
+        
+        // Create date tabs
+        createDateTabs(window.drawDates);
+        
+        // Show result section
+        document.getElementById('resultSection').style.display = 'block';
+        
+        // Update predictions for first date
+        updatePredictions(window.drawDates[0].key);
+      });
+      
+      // Custom date prediction button
+      document.getElementById('customDateButton').addEventListener('click', async function() {
+        const customDate = document.getElementById('customPredictionDate').value;
+        
+        if (!customDate) {
+          alert('කරුණාකර පුරෝකථනය සඳහා දිනයක් තෝරන්න');
+          return;
+        }
+        
+        // Get input values
+        const drawNumber = document.getElementById('drawNumber').value;
+        const drawDate = document.getElementById('drawDate').value;
+        const numbers = [];
+        for (let i = 1; i <= 6; i++) {
+          numbers.push(parseInt(document.getElementById(`num${i}`).value) || 0);
+        }
+        const winningLetter = document.getElementById('winningLetter').value.toUpperCase();
+        
+        // Create a unique input string for hashing
+        const inputString = `${drawNumber}-${drawDate}-${numbers.join('')}-${winningLetter}`;
+        
+        // Generate hash
+        const hash = await sha512(inputString);
+        window.currentHash = hash;
+        
+        // Get draw dates with custom date
+        window.drawDates = getDrawDates(customDate);
+        
+        // Create date tabs
+        createDateTabs(window.drawDates);
+        
+        // Show result section
+        document.getElementById('resultSection').style.display = 'block';
+        
+        // Update predictions for custom date
+        updatePredictions(customDate);
+      });
+      
+      // Initialize history display
+      const history = JSON.parse(localStorage.getItem('lotteryPredictionHistory')) || [];
+      updateHistoryDisplay(history);
+    }
+    
+    // Run initialization when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
